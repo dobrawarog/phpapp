@@ -5,33 +5,38 @@
 // 	'formularz' => 'Formularz',
 // 	'klasa' => 'Klasy'
 // );
+$ret array();
 
 function get_menu($id) {
-	global $db;
+	global $db, $ret;
 	$ret = array();
-	db_guery('SELECT * FROM menu', $ret);
-	// print_r($ret);
- 	foreach ($pages as $p => $t) {
+	db_query('SELECT * FROM menu', $ret);
+	//print_r($ret);
+ 	foreach ($ret as $k => $t) {
 		echo '
-			<li class="nav-item">
-                <a class="nav-link" href="?id='.$t['plik'].'">'.$t['tytul'].'</a>
-            </li>
+<li class="nav-item">
+    <a class="nav-link" href="?id='.$t['plik'].'">'.$t['tytul'].'</a>
+</li>
 		';
 	}
- }
+}
 
 function get_page_title($id) {
-	global $pages;
-	if (array_key_exists($id, $pages))
-		echo $pages[$id];
-	else
+	global $ret;
+	foreach ($ret as $k => $t) }
+if ($t['plik']==$id){
+	echo $t['tytul'];
+	return;
+}
+}
 		echo 'Aplikacja PHP';
 }
 
 function get_page_content($id) {
-	if (file_exists($id.'html'))
-		include($id.'html');
+	if (file_exists($id.'.html'))
+		include($id.'.html');
 	else
 		include('404.html');
 }
+
 ?>
